@@ -1,8 +1,8 @@
 <?php
 namespace App;
 
-class Router {
-	
+class Router 
+{
 	/**
 	 * Contains the method to run under a Controller
 	 * Controller@method
@@ -24,8 +24,11 @@ class Router {
 	 */
 	private $dispatcher;
 
-	public function __construct($dispatcher) {
+	public function __construct($dispatcher, $request) 
+	{
 		$this->dispatcher = $dispatcher;
+
+		$this->request = $request;
 	}
 
 	/**
@@ -33,7 +36,8 @@ class Router {
 	 * Parse the corresponding Controller@method to execute
 	 * @return json | 
 	 */
-	public function execute() {
+	public function execute() 
+	{
 		// // Fetch method and URI from somewhere
 		$httpMethod = $_SERVER['REQUEST_METHOD'];
 		$uri = $_SERVER['REQUEST_URI'];
@@ -49,6 +53,13 @@ class Router {
 		    case \FastRoute\Dispatcher::NOT_FOUND:
 		    case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
 		    	// return json value for not found
+		    	
+		    	$response = [
+		    		'code' => 400,
+		    		'message' => 'Route not found'
+		    	];
+
+		    	return json_encode($response);
 		        break;
 		    case \FastRoute\Dispatcher::FOUND:
 		        $handler = $routeInfo[1];
@@ -58,7 +69,7 @@ class Router {
 		        $controller = "\\App\\Controllers\\". $split[0];
 		        $ctrl = new $controller;
 
-		        return array($ctrl, $split[1])();
+		        return array($ctrl, $split[1])($vars, $this->request);
 		        break;
 		}
 	}

@@ -1,5 +1,9 @@
 <?php
+namespace App\Models;
 
-class Human {
-	
+
+use Illuminate\Database\Eloquent\Model;
+
+class Human extends Model {
+	public $timestamps = false;	
 }
