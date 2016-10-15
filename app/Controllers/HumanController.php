@@ -56,27 +56,27 @@ class HumanController
 	 * Creates a new Human data
 	 * @return json 
 	 */
-	public function store() 
+	public function store($vars, Request $request) 
 	{
-		$request = $_POST;
+		$data = $request->request->all();
 
 		// validation
-		if (!isset($request['first_name'])) {
+		if (!isset($data['first_name'])) {
 			return json_encode([
 				'code' => 400,
 				'message' => 'First name is required'
 			]);
 		}
 
-		if (!isset($request['last_name'])) {
+		if (!isset($data['last_name'])) {
 			return json_encode([
 				'code' => 400,
 				'message' => 'Last name is required'
 			]);
 		}
 
-		$firstname = $request['first_name'];
-		$lastname = $request['last_name'];
+		$firstname = $data['first_name'];
+		$lastname = $data['last_name'];
 
 		$human = new Human();
 		$human->first_name = $firstname;
