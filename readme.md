@@ -13,4 +13,4 @@ As described here, _https://github.com/pragmanila/humans-api_, the API should no
 ## Usage
 For testing purposes, you can run the application using `php -S 0.0.0.0:8000` and access it in your browser using localhost:8000.
 
-Run the front end _ _ to see a demo of API consumption.
+Run the front end _https://github.com/markronquillo/pragmanila-humans-front_ to see a demo of API consumption.
